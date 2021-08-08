@@ -113,16 +113,38 @@ The images folder won't be in this repository because the dimension is too high 
 # How the project works
 In this section we will explain how the project works.
 
-## Import the dataset and split the training set
-In the first part of the code we will import all the images using ```imageDataStore``` a function that automatically labels all the images based on the folder names. The images will be stored into an ```ImageDataStore``` object. After that we split each label into **training** and into **validation** set. We chose to split into 70% training and 30% test.
+## Variables tuning
+In the first part of the code it is possible to configure the code variables.
+### Print configuration
+1. Print random images of the training set (0 disabled / 1 enabled)
+```
+print_training_set = 0;
+```
+2. Print 12 random images of the test set (0 disabled / 1 enabled). For each of them it shows the number of the image, the prediction of the model and the correct class.
+```
+print_test_set = 0;
+```
+### Classification Version
+It is possible to choose between two classifier versions:
+1. Matlab: following the matlab tutorials on how to extract features there is the possibility to use the function *fitcecoc* to create a classifier and then generate the predictions.
+```
+classification_version = "matlab";
+```
+2. Liblinear: we use the [liblinear](https://www.csie.ntu.edu.tw/~cjlin/liblinear/) library to use linears svm to perform the classification. So, after the conversion of the data to the one compatible to liblinear, we train the model passing the labels and the features and after we perform the prediction using the labels and the features of the test set and the model generated before. At the end we compute the accuracy.
+```
+classification_version = "liblinear";
+```
+### Network selection
+It is possible to select one of the pretrained network between **AlexNet**, **ResNet-18** and **VGG16**.
 
-## Pretrained network selection
-The next step is to choose which pretrained network use to extract the features In the code there is a part in which is possible to select which neural network use:
 ```
 network = "alexnet";
 % network = "resnet";
 % network = "vgg"
 ```
+
+## Import the dataset and split the training set
+In the second part of the code we will import all the images using ```imageDataStore``` a function that automatically labels all the images based on the folder names. The images will be stored into an ```ImageDataStore``` object. After that we split each label into **training** and into **validation** set. We chose to split into 70% training and 30% test.
 
 ## Image resize
 The networks require different input size, in this section the image will be resized to fit the first input layer. To automatically resize the training and test images before they are input to the network, create augmented image datastores, specify the desired image size, and use these datastores as input arguments to activations.
@@ -133,6 +155,20 @@ The network constructs a hierarchical representation of input images. Deeper lay
 In our case for **alexnet** is **fc7**, for **resnet18** is **pool5** and for **vgg16** is **fc7**. This parameter can be changed. Basically we are extracting the feature from the layer before the layer that actually classify the things.
 
 ## Classification
+The next step is to perform the creation of the model using the training set features and labels, and after to perform the classification using the model, the feature of the test set and the labels of the test set. At the end we compute the accuracy.
+
+There are two different version to do this: **matlab** and **liblinear**.
+
+### Matlab Version
+Following the matlab tutorials on how to extract features there is the possibility to use the function fitcecoc to create a classifier and then generate the predictions. At the end it is possible to compute the accuracy.
+
+```matlab
+classifier = fitcecoc(featuresTrain,YTrain);
+YPred = predict(classifier,featuresTest);
+accuracy = mean(YPred == YTest);
+```
+
+### 
 
 # How to run the project
 In this section we will explain how to run the project
@@ -146,10 +182,10 @@ In this section we will explain how to run the project
 
 4. Install the matlab Deep Learning Toolbox Model for VGG-16 Network Add On: Home > Add-On > Deep Learning Toolbox Model for VGG-16 Network
 
-## Pretrained network selection
-The next step is to choose which pretrained network use to extract the features In the code there is a part in which is possible to select which neural network use:
+## Variables configuration
+The next step is to configure the variables of the first section. Here there's one of the most important thing to do: choosing which pretrained network use to extract the features. To select one you have to uncomment.
 ```
-network = "alexnet";
+% network = "alexnet";
 % network = "resnet";
 % network = "vgg"
 ```
