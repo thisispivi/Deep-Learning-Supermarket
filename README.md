@@ -3,7 +3,7 @@ This project tries to understand the position of a person in a supermarket using
 
 The images are taken from a [dataset](https://iplab.dmi.unict.it/MLC2018/). These images has been taken by a camera attached to a supermarket cart that followed some routes inside the supermarket. After the acquisition they have been divided into 16 classes.  
 
-![image](img/Route.png)
+![image](img/Routes.png)
 
 With this dataset we will perform the feature extraction using three pretrained networks:
 * AlexNet
