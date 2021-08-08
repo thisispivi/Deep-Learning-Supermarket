@@ -3,7 +3,7 @@ This project tries to understand the position of a person in a supermarket using
 
 The images are taken from a [dataset](https://iplab.dmi.unict.it/MLC2018/). These images has been taken by a camera attached to a supermarket cart that followed some routes inside the supermarket. After the acquisition they have been divided into 16 classes.  
 
-![image](img/ROUTE.png)
+![image](img/Route.png)
 
 With this dataset we will perform the feature extraction using three pretrained networks:
 * AlexNet
@@ -19,14 +19,20 @@ After that we will perfom the classification using linear SVMs.
   * [VGG16](#vgg16)
 - [Dataset Organization](#dataset-organization)
 - [How the project works](#how-the-project-works)
+  * [Variables tuning](#variables-tuning)
+    + [Print configuration](#print-configuration)
+    + [Classification Version](#classification-version)
+    + [Network selection](#network-selection)
   * [Import the dataset and split the training set](#import-the-dataset-and-split-the-training-set)
-  * [Pretrained network selection](#pretrained-network-selection)
   * [Image resize](#image-resize)
   * [Select the activation layer for the feature extraction and extract the features](#select-the-activation-layer-for-the-feature-extraction-and-extract-the-features)
   * [Classification](#classification)
+    + [Matlab Version](#matlab-version)
+    + [Liblinear Version](#liblinear-version)
 - [How to run the project](#how-to-run-the-project)
   * [Preliminary steps](#preliminary-steps)
-  * [Pretrained network selection](#pretrained-network-selection-1)
+  * [Dataset organization](#dataset-organization)
+  * [Variables configuration](#variables-configuration)
   * [Run the script](#run-the-script)
 - [Test and output analysis](#test-and-output-analysis)
 
@@ -146,6 +152,8 @@ network = "alexnet";
 ## Import the dataset and split the training set
 In the second part of the code we will import all the images using ```imageDataStore``` a function that automatically labels all the images based on the folder names. The images will be stored into an ```ImageDataStore``` object. After that we split each label into **training** and into **validation** set. We chose to split into 70% training and 30% test.
 
+![First-Step](img/First.png)
+
 ## Image resize
 The networks require different input size, in this section the image will be resized to fit the first input layer. To automatically resize the training and test images before they are input to the network, create augmented image datastores, specify the desired image size, and use these datastores as input arguments to activations.
 
@@ -168,7 +176,21 @@ YPred = predict(classifier,featuresTest);
 accuracy = mean(YPred == YTest);
 ```
 
-### 
+### Liblinear Version
+Here we use the liblinear library to use linears svm to perform the classification. In the first rows there's the conversion of the data to the one compatible to liblinear. 
+
+Next we train the model passing the labels and the features. 
+
+After we perform the prediction using the labels and the features of the test set and the model generated before. At the end we compute the accuracy.
+```matlab
+YTrain=double(YTrain(:,1));
+YTest=double(YTest(:,1));
+featuresTrain = sparse(double(featuresTrain));
+featuresTest = sparse(double(featuresTest));
+model = train(YTrain, featuresTrain);
+YPred = predict(YTest, featuresTest, model);
+accuracy = mean(YPred == YTest)
+```
 
 # How to run the project
 In this section we will explain how to run the project
@@ -182,6 +204,8 @@ In this section we will explain how to run the project
 
 4. Install the matlab Deep Learning Toolbox Model for VGG-16 Network Add On: Home > Add-On > Deep Learning Toolbox Model for VGG-16 Network
 
+## Dataset organization
+
 ## Variables configuration
 The next step is to configure the variables of the first section. Here there's one of the most important thing to do: choosing which pretrained network use to extract the features. To select one you have to uncomment.
 ```
@@ -191,5 +215,6 @@ The next step is to configure the variables of the first section. Here there's o
 ```
 
 ## Run the script
+The only thing left is to run the script
 
 # Test and output analysis
