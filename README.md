@@ -56,7 +56,7 @@ OR
 analyzeNetwork(net)
 ```
 </details>
-<br>
+
 
 ## ResNet18
 The ResNet-18 is a convolutional neural network that is 18 layer deep. The pretrained version has more than a milion images from the [ImageNet](http://www.image-net.org) database. This pretrained network can classify images into 100 object categories, such as keyboard, mouse, pencil and many animals. The network has an image input size of 244x244.
@@ -75,7 +75,7 @@ OR
 analyzeNetwork(net)
 ```
 </details>
-<br>
+
 
 ## VGG16
 VGG16 is a convolutional neural network that is 16 layers deep. The pretrained version has more than a milion images from the [ImageNet](http://www.image-net.org) database. This pretrained network can classify images into 100 object categories, such as keyboard, mouse, pencil and many animals. The network has an image input size of 224x224.
@@ -94,7 +94,7 @@ OR
 analyzeNetwork(net)
 ```
 </details>
-<br>
+
 
 # Dataset Organization
 The first step to do is to organize the images into folders. The zip file is divided into a folder that contains all the images and three csv files:
@@ -110,11 +110,15 @@ The first two csv files have 6 columns:
 * z coordinate
 * Class
 
-We used just the first file and we removed all the coordinates columns, because we don't need the position in which the photo was taken, we need just the name of the file and the class.
+We used just the first two files and we removed all the coordinates columns, because we don't need the position in which the photo was taken, we need just the name of the file and the class.
 
 Using a bash script file we divided all the images into folders from 00 to 15 based on their class.
 
-The images folder won't be in this repository because the dimension is too high for github.
+There are two folders:
+1. **ValidationSet**: in which we can find all the validation set images
+2. **TrainingSet**: in which we can find all the training set images
+
+The images folder won't be in this repository because the size is too high for github.
 
 # How the project works
 In this section we will explain how the project works.
@@ -150,9 +154,7 @@ network = "alexnet";
 ```
 
 ## Import the dataset and split the training set
-In the second part of the code we will import all the images using ```imageDataStore``` a function that automatically labels all the images based on the folder names. The images will be stored into an ```ImageDataStore``` object. After that we split each label into **training** and into **validation** set. We chose to split into 70% training and 30% test.
-
-![First Step](img/First.png)
+In the second part of the code we will import all the images using ```imageDataStore``` a function that automatically labels all the images based on the folder names. The images will be stored into an ```ImageDataStore``` object. So we take the validation set images from the folder **ValidationSet** and we store into an ```ImageDataStore``` object. The same thing for the training set.
 
 ## Image resize
 The networks require different input size, in this section the image will be resized to fit the first input layer. To automatically resize the training and test images before they are input to the network, create augmented image datastores, specify the desired image size, and use these datastores as input arguments to activations.
