@@ -152,15 +152,20 @@ network = "alexnet";
 ## Import the dataset and split the training set
 In the second part of the code we will import all the images using ```imageDataStore``` a function that automatically labels all the images based on the folder names. The images will be stored into an ```ImageDataStore``` object. After that we split each label into **training** and into **validation** set. We chose to split into 70% training and 30% test.
 
-![First-Step](img/First.png)
+![First Step](img/First.png)
 
 ## Image resize
 The networks require different input size, in this section the image will be resized to fit the first input layer. To automatically resize the training and test images before they are input to the network, create augmented image datastores, specify the desired image size, and use these datastores as input arguments to activations.
+
+![Image Resize](img/Resize.png)
 
 ## Select the activation layer for the feature extraction and extract the features
 The network constructs a hierarchical representation of input images. Deeper layers contain higher-level features, constructed using the lower-level features of earlier layers. To get the feature representations of the training and test images, we will use activations on different layers depending on the network used. 
 
 In our case for **alexnet** is **fc7**, for **resnet18** is **pool5** and for **vgg16** is **fc7**. This parameter can be changed. Basically we are extracting the feature from the layer before the layer that actually classify the things.
+At the end of this step we will have the features of the training and test sets.
+
+![Activation](img/Activation.png)
 
 ## Classification
 The next step is to perform the creation of the model using the training set features and labels, and after to perform the classification using the model, the feature of the test set and the labels of the test set. At the end we compute the accuracy.
@@ -181,10 +186,16 @@ Here we use the liblinear library to use linears svm to perform the classificati
 
 Next we train the model passing the labels and the features. 
 
-After we perform the prediction using the labels and the features of the test set and the model generated before. At the end we compute the accuracy.
+![Train](img/Train.png)
+
+After we perform the prediction using the labels and the features of the test set and the model generated before. 
+
+![Predictions](img/Predictions.png)
+
+At the end we compute the accuracy.
 ```matlab
-YTrain=double(YTrain(:,1));
-YTest=double(YTest(:,1));
+YTrain = double(YTrain(:,1));
+YTest = double(YTest(:,1));
 featuresTrain = sparse(double(featuresTrain));
 featuresTest = sparse(double(featuresTest));
 model = train(YTrain, featuresTrain);
