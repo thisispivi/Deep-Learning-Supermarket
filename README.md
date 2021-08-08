@@ -112,7 +112,7 @@ The first two csv files have 6 columns:
 
 We used just the first two files and we removed all the coordinates columns, because we don't need the position in which the photo was taken, we need just the name of the file and the class.
 
-Using a bash script file we divided all the images into folders from 00 to 15 based on their class.
+For both the trainign and the validation set, using a bash script file we divided all the images into folders from 00 to 15 based on their class.
 
 There are two folders:
 1. **ValidationSet**: in which we can find all the validation set images
@@ -231,3 +231,27 @@ The next step is to configure the variables of the first section. Here there's o
 The only thing left is to run the script
 
 # Test and output analysis
+At the end we analyzed the results.
+
+## Accuracy
+
+| Pretrained Network | Accuracy | True Positive | No. of images |
+|:------------------:|:--------:|:-------------:|:----------------:|
+| AlexNet | 92.97% | 2883 | 3101 |
+| ResNet-18 | 91.68% | 2843 | 3101 |
+| VGG16 | 92.71% | 2875 | 3101 |
+
+## Confusion matrix
+For each pretrained network we computed the confusion matrix.
+
+### AlexNet
+
+![1-Alex](img/1-Alex.png)
+
+### ResNet
+
+![2-Res](img/2-Res.png)
+
+### VGG
+
+![3-VGG](img/3-VGG.png)
