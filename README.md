@@ -209,13 +209,15 @@ accuracy = mean(YPred == YTest)
 In this section we will explain how to run the project
 
 ## Preliminary steps
-1. Install the matlab Deep Learning Toolbox Add On: Home > Add-On > Deep Learning Toolbox
+1. Install the matlab Statistic and Machine Learning Toolbox Add On: Home > Add-On > Statistic and Machine Learning Toolbox
 
 2. Install the matlab Deep Learning Toolbox Model for AlexNet Network Add On: Home > Add-On > Deep Learning Toolbox Model for AlexNet Network
 
 3. Install the matlab Deep Learning Toolbox Model for ResNet-18 Network Add On: Home > Add-On > Deep Learning Toolbox Model for ResNet-18 Network
 
 4. Install the matlab Deep Learning Toolbox Model for VGG-16 Network Add On: Home > Add-On > Deep Learning Toolbox Model for VGG-16 Network
+
+5. Install the Plot Confusion Matrix Add On: Home > Add-On > Plot Confusion Matrix by Vane Tshitoyan
 
 ## Dataset organization
 
