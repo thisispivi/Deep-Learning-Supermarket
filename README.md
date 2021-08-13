@@ -1,7 +1,7 @@
 # Deep-Learning-Supermarket
-This objective of this project is to try to understand the position of a person in a supermarket using image classification and deep learning.
+The objective of this project is to try to understand the position of a person in a supermarket using image classification and deep learning.
 
-The images of the supermaket are taken from a [dataset](https://iplab.dmi.unict.it/MLC2018/). These images has been taken by a camera attached to a cart that followed some routes inside the supermarket. After the acquisition they have been divided into 16 classes/routes.  
+The images of the supermaket are taken from a [dataset](https://iplab.dmi.unict.it/MLC2018/). These images have been taken by a camera attached to a cart that followed some routes inside the supermarket. After the acquisition they have been divided into 16 classes/routes.    
 
 ![image](img/Routes.png)
 
@@ -35,7 +35,6 @@ After that we will perfom the classification using linear SVMs.
   * [Variables configuration](#variables-configuration)
   * [Run the script](#run-the-script)
 - [Test and output analysis](#test-and-output-analysis)
-  * [Accuracy](#accuracy)
   * [Confusion matrix](#confusion-matrix)
     + [AlexNet](#alexnet-1)
     + [ResNet](#resnet)
@@ -48,6 +47,8 @@ After that we will perfom the classification using linear SVMs.
 |
 | Folders
 ├── img   # Images for the readme
+├── doc   # Report folder
+│   ├── Report.pdf   # Report
 ├── *TrainingSet*   # Folder with the images of the training set
 │   ├── 00
 │   ├── 01
@@ -78,11 +79,13 @@ After that we will perfom the classification using linear SVMs.
 Folders with * are not included in the repository.
 
 # Pretrained Networks
-In this section we will show which are the pretrained network that we used in this project. 
+In this section we will show which are the pretrained networks that we used in this project. 
 
 A pretrained network is a network that has already learned to extract powerful and informative features from natural images. It can be used as a starting point to learn a new task.
 
-Many of the pretrained network used in this project has been trained with the same [ImageNet](http://www.image-net.org) database. These pretrained network can classify images into 100 object categories, such as keyboard, mouse, pencil and many animals.
+Many of the pretrained networks used in this project have been trained with the same
+[ImageNet](http://www.image-net.org) database. These pretrained networks can classify images into 100 object categories, such as keyboard, mouse, pencil and many animals.
+
 
 ## AlexNet
 AlexNet is a convolutional neural network that is 8 layers deep.  The network has an image input size of 227x227.
@@ -311,17 +314,17 @@ Configure the other variables
 The only thing left is to run the script
 
 # Test and output analysis
-We run the program with every net and we compared the accuracy, the images correctly classified vs. the number of images and the time elapsed. All the test has been done using the **liblinear version**.
+We ran the program with every net and we compared the accuracy, the images correctly classified vs. the number of images and the time elapsed. All the tests have been done using the **liblinear version**.
 
-Next for each network we plotted the confusion matrix to understand in which classes there are more error.
-
-## Accuracy
+Next for each network we plotted the confusion matrix to understand in which classes there are more errors.
 
 | Pretrained Network | Accuracy | Correct Classified vs No. of images | Time Elasped (s) | Time Elasped |
 |:---:|:---:|:---:|:---:|:---:|
 | AlexNet | 93.00% | 2884 / 3101 | 125.51 | 2 min 5 s |
 | ResNet-18 | 92.52% | 2869 / 3101 | 254.52 | 4 min 14 s |
 | VGG16 | 92.33% | 2863 / 3101 | 1595.04 | 26 min 35 s |
+
+As we can see the accuracy is almost the same for each pretrained network, but **AlexNet** is the fastest in terms of time elapsed.
 
 ## Confusion matrix
 For each pretrained network we computed the confusion matrix.
