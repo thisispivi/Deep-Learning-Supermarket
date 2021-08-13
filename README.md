@@ -40,6 +40,42 @@ After that we will perfom the classification using linear SVMs.
     + [AlexNet](#alexnet-1)
     + [ResNet](#resnet)
     + [VGG](#vgg)
+- [Conclusions](#conclusions)
+
+# Files Structure
+```
+.
+|
+| Folders
+├── img   # Images for the readme
+├── *TrainingSet*   # Folder with the images of the training set
+│   ├── 00
+│   ├── 01
+│   ├── ...
+│   ├── 14
+│   └── 15
+├── *ValidationSet*   # Folder with the images of the validation set
+│   ├── 00
+│   ├── 01
+│   ├── ...
+│   ├── 14
+│   └── 15
+|
+| Markdown
+├── README.md
+|
+| Liblinear
+├── libsvmread.mexw64   # Read
+├── libsvmwrite.mexw64   # Write
+├── train.mexw64   # File with train function
+├── predict.mexw64   # File with predict function
+|
+| Matlab Script
+├── script_no_live.m   # The script
+└── script.mlx   # Live script version
+```
+
+Folders with * are not included in the repository.
 
 # Pretrained Networks
 In this section we will show which are the pretrained network that we used in this project. 
@@ -232,6 +268,14 @@ accuracy = mean(YPred == YTest)
 In this section we will explain how to run the project
 
 ## Preliminary steps
+
+1. Clone the repository
+```shell script
+git clone https://github.com/thisispivi/Deep-Learning-Supermarket
+```
+
+2. Open the matlab file ```script.mlx```
+
 1. Install the matlab Statistic and Machine Learning Toolbox Add On: Home > Add-On > Statistic and Machine Learning Toolbox
 
 2. Install the matlab Deep Learning Toolbox Model for AlexNet Network Add On: Home > Add-On > Deep Learning Toolbox Model for AlexNet Network
@@ -243,6 +287,13 @@ In this section we will explain how to run the project
 5. Install the Plot Confusion Matrix Add On: Home > Add-On > Plot Confusion Matrix by Vane Tshitoyan
 
 ## Dataset organization
+1. Download the dataset
+
+2. With the help of online tools remove the coordinates columns from the csv files
+
+3. Take the training set images and put them inside a new folder called **TrainingSet** in the root of the project
+
+4. Take the validation set images and put them inside a new folder called **ValidationSet** in the root of the project
 
 ## Variables configuration
 The next step is to configure the variables of the first section. Here there's one of the most important thing to do: choosing which pretrained network use to extract the features. To select one you have to uncomment.
@@ -252,14 +303,21 @@ The next step is to configure the variables of the first section. Here there's o
 % network = "vgg"
 ```
 
+**(Optional)**
+
+Configure the other variables
+
 ## Run the script
 The only thing left is to run the script
 
 # Test and output analysis
+We run the program with every net and we compared the accuracy, the images correctly classified vs. the number of images and the time elapsed. All the test has been done using the **liblinear version**.
+
+Next for each network we plotted the confusion matrix to understand in which classes there are more error.
 
 ## Accuracy
 
-| Pretrained Network | Accuracy | True Positive vs No. of images | Time Elasped (s) | Time Elasped |
+| Pretrained Network | Accuracy | Correct Classified vs No. of images | Time Elasped (s) | Time Elasped |
 |:---:|:---:|:---:|:---:|:---:|
 | AlexNet | 93.00% | 2884 / 3101 | 125.51 | 2 min 5 s |
 | ResNet-18 | 92.52% | 2869 / 3101 | 254.52 | 4 min 14 s |
@@ -272,10 +330,36 @@ For each pretrained network we computed the confusion matrix.
 
 ![1-Alex](img/1-Alex.png)
 
+In this confusion matrix we can see that there are many images of the class 6 classified as 14. The main reason is that 14 is a route that has a link with evey other class except 10. The errors comes from photos that are between 6 and 14, for example a photo of the route 6 in which it is possible to see the route 14 and so on.
+
+We can also notice images of the route 11 classified as 9 and also images of the 15 classified as 14. These errors are caused by the same reason explained before.
+
 ### ResNet
 
 ![2-Res](img/2-Res.png)
 
+In this confusion matrix we can see images of the class 7 classified as 14 and images of 11 classified as 9. The reason is the same explained before.
+
 ### VGG
 
 ![3-VGG](img/3-VGG.png)
+
+In this confusion matrix we can see images of the class 5 and 6 classified as 14 and images of 11 classified as 9. The reason is the same explained before.
+
+# Conclusions
+
+We also analzed the images misclassified, almost the totality of them comes from images taken between two routes. 
+
+For example in some images of the route 6 we could see the route 14. 
+
+**Image from the training set of class 00**
+
+![4L048820](img/4L048820.jpg)
+
+**Image from the validation set of class 15**
+
+![valid-8L049180](img/valid-8L049180.jpg)
+
+As we can see the images are almost the same
+
+This could be fixed removing these images, because they generate many errors.
