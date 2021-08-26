@@ -3,10 +3,6 @@ print_training_set = 0; % Print random images of the training set
 print_test_set = 0; % Print random images of the predicted set
 print_conf_matr = 1; % Print the confusion matrix
 
-%%% CLASSIFICATION VERSION %%%
-% classification_version = "matlab"; % Uncomment to use the matlab version of the svm classifier
-classification_version = "liblinear"; % Uncomment to use the liblinear version of the svm classifier
-
 %%% NETWORK SELECTION %%%
 network = "alexnet"; % Uncomment to use alexnet
 % network = "resnet"; % Uncomment to use resnet18
@@ -54,21 +50,13 @@ featuresTest = activations(net,augimdsTest,layer,'OutputAs','rows');
 YTrain = imdsTrain.Labels;
 YTest = imdsTest.Labels;
 
-%%% CLASSIFICATION MATLAB VERSION %%%
-if classification_version == "matlab"
-    classifier = fitcecoc(featuresTrain,YTrain);
-    YPred = predict(classifier,featuresTest);
-end
-
-%%% CLASSIFICATION LIBLINEAR VERSION %%%
-if classification_version == "liblinear"
-    YTrain = double(YTrain(:,1)) -1;
-    YTest = double(YTest(:,1)) -1;
-    featuresTrain = sparse(double(featuresTrain));
-    featuresTest = sparse(double(featuresTest));
-    model = train(YTrain, featuresTrain, '-s 2');
-    YPred = predict(YTest, featuresTest, model);
-end
+%%% CLASSIFICATION%%%
+YTrain = double(YTrain(:,1)) -1;
+YTest = double(YTest(:,1)) -1;
+featuresTrain = sparse(double(featuresTrain));
+featuresTest = sparse(double(featuresTest));
+model = train(YTrain, featuresTrain, '-s 2');
+YPred = predict(YTest, featuresTest, model);
 
 %%% SHOW IMAGES %%%
 if print_test_set == 1

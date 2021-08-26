@@ -13,8 +13,6 @@ With this dataset we will perform the feature extraction using three pretrained 
 After that we will perfom the classification using linear SVMs.
 
 # Index
-- [Deep-Learning-Supermarket](#deep-learning-supermarket)
-- [Index](#index)
 - [Files Structure](#files-structure)
 - [Pretrained Networks](#pretrained-networks)
   * [AlexNet](#alexnet)
@@ -24,14 +22,11 @@ After that we will perfom the classification using linear SVMs.
 - [How the project works](#how-the-project-works)
   * [Variables tuning](#variables-tuning)
     + [Print configuration](#print-configuration)
-    + [Classification Version](#classification-version)
     + [Network selection](#network-selection)
   * [Import the dataset and split the training set](#import-the-dataset-and-split-the-training-set)
   * [Image resize](#image-resize)
   * [Select the activation layer for the feature extraction and extract the features](#select-the-activation-layer-for-the-feature-extraction-and-extract-the-features)
   * [Classification](#classification)
-    + [Matlab Version](#matlab-version)
-    + [Liblinear Version](#liblinear-version)
 - [How to run the project](#how-to-run-the-project)
   * [Preliminary steps](#preliminary-steps)
   * [Dataset organization](#dataset-organization)
@@ -84,7 +79,7 @@ After that we will perfom the classification using linear SVMs.
 Folders with * are not included in the repository.
 
 # Pretrained Networks
-In this section we will show which are the pretrained networks that we used in this project. 
+This section will show which are the pretrained networks that have been used in this project. 
 
 A pretrained network is a network that has already learned to extract powerful and informative features from natural images. It can be used as a starting point to learn a new task.
 
@@ -150,7 +145,7 @@ analyzeNetwork(net)
 
 # Dataset Organization
 The first step to do is to organize the images into folders. The zip file is made by a folder that contains all the images and three csv files:
-* **training_set**: that contains all the images to use to train the knn
+* **training_set**: that contains all the images to use to train the pretrained network
 * **validation_set**: that contains all the images to use to verify the accuracy
 * **test_set**: that contains all the images to use to run the algorithm
 
@@ -162,23 +157,23 @@ The first two csv files have 6 columns:
 * z coordinate
 * Class
 
-We used just the first two files and we removed all the coordinates columns, because we don't need the position in which the photo was taken, we need just the name of the file and the class.
+Just the first two files have been used and all the coordinate columns have been removed, because the position in which the photo was taken it’s not necessary. So just the name of the file and the class have been used.
 
-For both the training and the validation set, using a bash script file, we divided all the images into folders from 00 to 15 based on their class.
+In both the training and the validation set, using a bash script file, all the images have been divided into folders from 00 to 15 based on their class.
 
-So we have two folders:
-1. **ValidationSet**: in which we can find all the validation set images
-2. **TrainingSet**: in which we can find all the training set images
+So there are two folders:
+1. **ValidationSet**: in which there are all the validation set images
+2. **TrainingSet**: in which there are all the training set images
 
 The images folder won't be in this repository because the size is too high for github.
 
-The organized dataset that we used can be downloaded [here](https://mega.nz/file/VZ0ShDyI#_1tMgy4y_AEkdYv2BERWRVfuXxc07RWdKVL2V8p54cw).
+The organized dataset that has been used can be downloaded [here](https://mega.nz/file/VZ0ShDyI#_1tMgy4y_AEkdYv2BERWRVfuXxc07RWdKVL2V8p54cw).
 
 # How the project works
-In this section we will explain how the project works.
+This section will explain how the project works.
 
 ## Variables tuning
-In the first part of the code it is possible to configure the code variables. This part is useful to enable or disable some parts of the code, or to choose which classification version or pretrained network to use.
+In the first part of the code it is possible to configure the code variables. This part is useful to enable or disable some parts of the code and to choose which pretrained network to use.
 
 ### Print configuration
 These variables to enable or disable some part of the code. 
@@ -194,16 +189,7 @@ print_test_set = 0;
 ```
 print_conf_matr = 0;
 ```
-### Classification Version
-It is possible to choose between two classifier versions:
-1. Matlab: following the matlab tutorials on how to extract features there is the possibility to use the function *fitcecoc* to create a classifier and then generate the predictions.
-```
-classification_version = "matlab";
-```
-2. Liblinear: we use the [liblinear](https://www.csie.ntu.edu.tw/~cjlin/liblinear/) library to use linears svm to perform the classification. So, after the conversion of the data to the one compatible with liblinear, we train the model passing the labels and the features. After we perform the predictions using the labels and the features of the test set and the model generated before. At the end we compute the accuracy.
-```
-classification_version = "liblinear";
-```
+
 ### Network selection
 It is possible to select one of the pretrained networks between **AlexNet**, **ResNet-18** and **VGG16**.
 
@@ -214,55 +200,43 @@ network = "alexnet";
 ```
 
 ## Import the dataset and split the training set
-In the second part of the code we will import all the images using ```imageDataStore```, a function that automatically labels all the images based on the folder names. The images will be stored into an ```ImageDataStore``` object. 
+In the second part of the code there will be the import of all the images, using ```imageDataStore```, a function that automatically labels all the images based on the folder names. The images will be stored into an ```ImageDataStore``` object. 
 
-So we take the validation set images from the folder **ValidationSet** and we store them into an ```ImageDataStore``` object. The same thing for the training set.
+So the program takes the validation set images from the folder **ValidationSet** and it stores them into an ```ImageDataStore``` object. The same thing for the training set.
 
 ## Image resize
-The networks require different input sizes, in this section the image will be resized to fit the first input layer. To automatically resize the training and test images before they are input to the network, create augmented image datastores, specify the desired image size, and use these datastores as input arguments to activations.
+The networks require different input sizes, in this section the image will be resized to fit the first input layer. To automatically resize the training and test images before they are used as input by the network, the program creates augmented image datastores, it specifies the desired image size, and it uses these datastores as input arguments to activations.
 
 ![Image Resize](img/Resize.png)
 
 ## Select the activation layer for the feature extraction and extract the features
 The network constructs a hierarchical representation of input images. Deeper layers contain higher-level features, constructed using the lower-level features of earlier layers. 
 
-To get the feature representations of the training and test images, we will use activations on different layers depending on the network used. 
+To get the feature representations of the training and test images, the program will use activations on different layers depending on the network used. 
 
-In our case for **alexnet** is **fc7**, for **resnet18** is **pool5** and for **vgg16** is **fc7**. 
-This parameter can be changed. Basically we are extracting the feature from the layer before the layer that actually classifies the things.
+In the project case for **alexnet** is **fc7**, for **resnet18** is **pool5** and for **vgg16** is **fc7**. 
+This parameter can be changed. Basically the code is extracting the feature from the layer before the layer that actually classifies the things.
 
-At the end of this step we will have the features of the training and test sets.
+At the end of this step there will be the features of the training and test sets.
 
 ![Activation](img/Activation.png)
 
 ## Classification
-The next step is to perform the creation of the model using the training set features and labels, and after to perform the classification using the model, the feature of the test set and the labels of the test set. At the end we compute the accuracy.
+The next step is to perform the creation of the model using the training set features and labels, and after to perform the classification using the model, the feature of the test set and the labels of the test set. At the end the program computes the accuracy.
 
-There are two different versions to do this: **matlab** and **liblinear**.
-
-### Matlab Version
-Following the matlab tutorials on how to extract features there is the possibility to use the function fitcecoc to create a classifier and then generate the predictions. At the end it is possible to compute the accuracy.
-
-```matlab
-classifier = fitcecoc(featuresTrain,YTrain);
-YPred = predict(classifier,featuresTest);
-accuracy = mean(YPred == YTest);
-```
-
-### Liblinear Version
-Here we use the liblinear library to use linears svm to perform the classification. 
+The library used to use linears svm to perform the classification is [liblinear](https://www.csie.ntu.edu.tw/~cjlin/liblinear/). So, after the conversion of the data to the one compatible with liblinear, the program trains the model passing the labels and the features. After it performs the predictions using the labels and the features of the test set and the model generated before. At the end it computes the accuracy.
 
 In the first rows of the code there are the conversions of the data to the one compatible with liblinear. 
 
-Next we train the model passing the labels and the features. To train the model we insert an option (```-s 2```) to use the **L2-regularized L2-loss support vector classification (primal)**. The default is **L2-regularized L2-loss support vector classification (dual)**, but it gives many warnings because it reaches the max number of iterations.
+In the next part of the code there is training of the model, passing to the function the labels and the features. To train the model there is an option (```-s 2```) to use the **L2-regularized L2-loss support vector classification (primal)**. The default is **L2-regularized L2-loss support vector classification (dual)**, but it gives many warnings because it reaches the max number of iterations.
 
 ![Train](img/Train.png)
 
-After we perform the prediction using the labels and the features of the test set and the model generated before. 
+After there is the prediction using the labels and the features of the test set and the model generated before.
 
 ![Predictions](img/Predictions.png)
 
-At the end we compute the accuracy.
+At the end the program computes the accuracy.
 ```matlab
 YTrain = double(YTrain(:,1));
 YTest = double(YTest(:,1));
@@ -274,7 +248,7 @@ accuracy = mean(YPred == YTest)
 ```
 
 # How to run the project
-In this section we will explain how to run the project
+This section will explain how to run the project
 
 ## Preliminary steps
 
@@ -326,9 +300,9 @@ Configure the other variables
 The only thing left is to run the script
 
 # Test and output analysis
-We ran the program with every net and we compared the accuracy, the images correctly classified vs. the number of images and the time elapsed. All the tests have been done using the **liblinear version**.
+The program ran with every net and for each of them the accuracy, the images correctly classified vs. the number of images and the time elapsed has been compared. 
 
-Next for each network we plotted the confusion matrix to understand in which classes there are more errors.
+For each pretrained network the confusion matrix has been plotted to understand in which classes there are more errors.
 
 | Pretrained Network | Accuracy | Correct Classified vs No. of images | Time Elasped (s) | Time Elasped |
 |:---:|:---:|:---:|:---:|:---:|
@@ -336,7 +310,7 @@ Next for each network we plotted the confusion matrix to understand in which cla
 | ResNet-18 | 92.52% | 2869 / 3101 | 254.52 | 4 min 14 s |
 | VGG16 | 92.33% | 2863 / 3101 | 1595.04 | 26 min 35 s |
 
-As we can see the accuracy is almost the same for each pretrained network, but **AlexNet** is the fastest in terms of time elapsed.
+Here it’s possible to see that the accuracy is almost the same for each pretrained network, but **AlexNet** is the fastest in terms of time elapsed.
 
 ## Confusion matrix
 For each pretrained network we computed the confusion matrix.
@@ -345,30 +319,30 @@ For each pretrained network we computed the confusion matrix.
 
 ![1-Alex](img/1-Alex.png)
 
-In this confusion matrix we can see that there are many images of the class 6 classified as 14. The main reason is that 14 is a route that has a link with every other class except 10. The errors come from photos that are between 6 and 14, for example a photo of the route 6 in which it is possible to see the route 14 and so on.
+In this confusion matrix it’s possible to see that there are many images of the class 6 classified as 14. The main reason is that 14 is a route that has a link with every other class except 10. The errors come from photos that are between 6 and 14, for example a photo of the route 6 in which it is possible to see the route 14 and so on.
 
-We can also notice images of route 11 classified as 9 and also images of the 15 classified as 14. These errors are caused by the same reason explained before.
+It is also possible to notice images of route 11 classified as 9 and also images of the 15 classified as 14. These errors are caused by the same reason explained before.
 
 ### ResNet 18
 
 ![2-Res](img/2-Res.png)
 
-In this confusion matrix we can see images of the class 7 classified as 14 and images of 11 classified as 9. The reason is the same as explained before.
+In this confusion matrix it’s possible to see images of the class 7 classified as 14 and images of 11 classified as 9. The reason is the same as explained before.
 
 ### VGG 16
 
 ![3-VGG](img/3-VGG.png)
 
-In this confusion matrix we can see images of the class 5 and 6 classified as 14 and images of 11 classified as 9. The reason is the same as explained before.
+In this confusion matrix it’s possible to see images of the class 5 and 6 classified as 14 and images of 11 classified as 9. The reason is the same as explained before.
 
 ## Error Analysis
 
-We also analyzed the images misclassified, almost the totality of them comes from images taken between two routes. 
+At the end an analysis of the images misclassified has been done, almost the totality of them comes from images taken between two routes. 
 
 For example in some images of route 0 we could see route 15. 
 
 ![Comparison](img/Comparison.png)
 
-As we can see the images are almost the same
+It’s possible to see that the images are almost the same.
 
 These errors could be fixed by removing these images, because they generate many errors.
