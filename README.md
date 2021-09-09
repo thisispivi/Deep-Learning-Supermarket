@@ -15,9 +15,9 @@ and perform the classification using linear SVMs.
 * Classification creating a new network
 
 More info on the tests:
-1. [Feature extraction using pretrained networks]()
-1. [Fine-tuning]()
-1. [New network]()
+1. [Feature extraction using pretrained networks](https://github.com/thisispivi/Deep-Learning-Supermarket/blob/main/PRETRAINED.md)
+1. [Fine-tuning](https://github.com/thisispivi/Deep-Learning-Supermarket/blob/main/FINETUNING.md)
+1. [New network](https://github.com/thisispivi/Deep-Learning-Supermarket/blob/main/NEWNETWORK.md)
 
 
 # Index
