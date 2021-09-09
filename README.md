@@ -3,7 +3,7 @@ The objective of this project is to try to understand the position of a person i
 
 The images of the supermaket are taken from a [dataset](https://iplab.dmi.unict.it/MLC2018/). These images have been taken by a camera attached to a cart that followed some routes inside the supermarket. After the acquisition they have been divided into 16 classes/routes.    
 
-![image](img/Routes.png)
+![image](img/pretrained/Routes.png)
 
 With this dataset we will perform the feature extraction using three pretrained networks:
 * AlexNet
@@ -207,7 +207,7 @@ So the program takes the validation set images from the folder **ValidationSet**
 ## Image resize
 The networks require different input sizes, in this section the image will be resized to fit the first input layer. To automatically resize the training and test images before they are used as input by the network, the program creates augmented image datastores, it specifies the desired image size, and it uses these datastores as input arguments to activations.
 
-![Image Resize](img/Resize.png)
+![Image Resize](img/pretrained/Resize.png)
 
 ## Select the activation layer for the feature extraction and extract the features
 The network constructs a hierarchical representation of input images. Deeper layers contain higher-level features, constructed using the lower-level features of earlier layers. 
@@ -219,7 +219,7 @@ This parameter can be changed. Basically the code is extracting the feature from
 
 At the end of this step there will be the features of the training and test sets.
 
-![Activation](img/Activation.png)
+![Activation](img/pretrained/Activation.png)
 
 ## Classification
 The next step is to perform the creation of the model using the training set features and labels, and after to perform the classification using the model, the feature of the test set and the labels of the test set. At the end the program computes the accuracy.
@@ -230,11 +230,11 @@ In the first rows of the code there are the conversions of the data to the one c
 
 In the next part of the code there is training of the model, passing to the function the labels and the features. To train the model there is an option (```-s 2```) to use the **L2-regularized L2-loss support vector classification (primal)**. The default is **L2-regularized L2-loss support vector classification (dual)**, but it gives many warnings because it reaches the max number of iterations.
 
-![Train](img/Train.png)
+![Train](img/pretrained/Train.png)
 
 After there is the prediction using the labels and the features of the test set and the model generated before.
 
-![Predictions](img/Predictions.png)
+![Predictions](img/pretrained/Predictions.png)
 
 At the end the program computes the accuracy.
 ```matlab
@@ -317,7 +317,7 @@ For each pretrained network we computed the confusion matrix.
 
 ### AlexNet
 
-![1-Alex](img/1-Alex.png)
+![1-Alex](img/pretrained/1-Alex.png)
 
 In this confusion matrix it’s possible to see that there are many images of the class 6 classified as 14. The main reason is that 14 is a route that has a link with every other class except 10. The errors come from photos that are between 6 and 14, for example a photo of the route 6 in which it is possible to see the route 14 and so on.
 
@@ -325,13 +325,13 @@ It is also possible to notice images of route 11 classified as 9 and also images
 
 ### ResNet 18
 
-![2-Res](img/2-Res.png)
+![2-Res](img/pretrained/2-Res.png)
 
 In this confusion matrix it’s possible to see images of the class 7 classified as 14 and images of 11 classified as 9. The reason is the same as explained before.
 
 ### VGG 16
 
-![3-VGG](img/3-VGG.png)
+![3-VGG](img/pretrained/3-VGG.png)
 
 In this confusion matrix it’s possible to see images of the class 5 and 6 classified as 14 and images of 11 classified as 9. The reason is the same as explained before.
 
@@ -341,7 +341,7 @@ At the end an analysis of the images misclassified has been done, almost the tot
 
 For example in some images of route 0 we could see route 15. 
 
-![Comparison](img/Comparison.png)
+![Comparison](img/pretrained/Comparison.png)
 
 It’s possible to see that the images are almost the same.
 
