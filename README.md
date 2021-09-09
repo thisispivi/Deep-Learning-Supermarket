@@ -65,8 +65,9 @@ More info on the tests:
 ├── predict.mexw64   # File with predict function
 |
 | Matlab Script
-├── script_no_live.m   # The script
-└── script.mlx   # Live script version
+├── fine_tuning.mlx   # Script for the AlexMet fine tuning
+├── new_network.mlx   # Script for new Network
+└── pretrained_networks.mlx   # Script for the pretrained feature extraction
 ```
 
 Folders with * are not included in the repository.
