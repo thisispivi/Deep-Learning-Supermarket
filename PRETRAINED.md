@@ -141,9 +141,9 @@ At the end of this step there will be the features of the training and test sets
 ## Classification
 The next step is to perform the creation of the model using the training set features and labels, and after to perform the classification using the model, the feature of the test set and the labels of the test set. At the end the program computes the accuracy.
 
-The library used to use linears svm to perform the classification is [liblinear](https://www.csie.ntu.edu.tw/~cjlin/liblinear/). So, after the conversion of the data to the one compatible with liblinear, the program trains the model passing the labels and the features. After it performs the predictions using the labels and the features of the test set and the model generated before. At the end it computes the accuracy.
+The library used to use linears svm to perform the classification is [liblinear](https://www.csie.ntu.edu.tw/~cjlin/liblinear/). To use this library is necessary a conversion of the data to the one compatible with liblinear. After, the program trains the model passing the labels and the features. Next it performs the predictions using the labels and the features of the test set and the model generated before. At the end it computes the accuracy.
 
-In the first rows of the code there are the conversions of the data to the one compatible with liblinear. 
+In the first rows of this section of the code there is the conversion of the data to the one compatible with liblinear.
 
 In the next part of the code there is training of the model, passing to the function the labels and the features. To train the model there is an option (```-s 2```) to use the **L2-regularized L2-loss support vector classification (primal)**. The default is **L2-regularized L2-loss support vector classification (dual)**, but it gives many warnings because it reaches the max number of iterations.
 

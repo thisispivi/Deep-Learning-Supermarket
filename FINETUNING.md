@@ -38,6 +38,8 @@ The first thing done was to remove the last three layers of the network, because
 
 So we add again a fully connected layer with the right number of classes and some parameters tuned. We also add the softmax layer and the output layer at the end.
 
+With fine tuning it is also possible to change the weights of the first layers, but we decided to leave them unchanged
+
 ![AlexNet_Fine_Tuning](img/fine/Alex.png)
 
 # How the script works
