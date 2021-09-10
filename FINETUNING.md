@@ -74,6 +74,8 @@ In the second part of the code there will be the import of all the images, using
 
 So the program takes the test set images from the folder **TestSet** and it stores them into an ```ImageDataStore``` object. The same thing for the training set.
 
+After we split the Training set into Training and Validation sets. The validation set will be 30% of the training set. 
+
 ## Image resize
 The networks require different input sizes, in this section the image will be resized to fit the first input layer. To automatically resize the training and test images before they are used as input by the network, the program creates augmented image datastores, it specifies the desired image size, and it uses these datastores as input arguments to activations.
 
@@ -147,7 +149,7 @@ The same thing can be said about the loss graph. The validation set line and the
 ## Confusion matrix
 In this section we analyze the confusion matrix of the network.
 
-![Network Performance](img/fine/Conf-matr.png)
+![Network Performance](img/fine/Conf-Matr.png)
 
 As we can see there are many elements of the 0 class that were classified as 14 and 15 and 10. As we can see from the map, 0 - 15 - 14 - 10 have some parts in common, they are linking routes. 
 
