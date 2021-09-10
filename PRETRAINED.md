@@ -165,17 +165,20 @@ accuracy = mean(YPred == YTest)
 ```
 
 # Test and output analysis
-The program ran with every net and for each of them the accuracy, the images correctly classified vs. the number of images and the time elapsed has been compared. 
+The program ran with every net and for each of them the accuracy, the images correctly classified vs. the number of images and the time elapsed has been compared.  
+
+It’s important to say that AlexNet and ResNet18 ran using the GPU, VGG16 with CPU because it is too big for the GPU.
 
 For each pretrained network the confusion matrix has been plotted to understand in which classes there are more errors.
 
+
 | Pretrained Network | Accuracy | Correct Classified vs No. of images | Time Elasped (s) | Time Elasped |
 |:---:|:---:|:---:|:---:|:---:|
-| AlexNet | 93.00% | 2884 / 3101 | 125.51 | 2 min 5 s |
-| ResNet-18 | 92.52% | 2869 / 3101 | 254.52 | 4 min 14 s |
+| AlexNet | 93.52% | 2900 / 3101 | 59.96 | 1 min |
+| ResNet-18 | 92.07% | 2855 / 3101 | 23.39 | 23.39 s |
 | VGG16 | 92.33% | 2863 / 3101 | 1595.04 | 26 min 35 s |
 
-Here it’s possible to see that the accuracy is almost the same for each pretrained network, but **AlexNet** is the fastest in terms of time elapsed.
+Here it’s possible to see that the accuracy is higher on **AlexNet**, but **ResNet18** is the fastest in terms of time elapsed.
 
 ## Confusion matrix
 For each pretrained network we computed the confusion matrix.
@@ -184,21 +187,21 @@ For each pretrained network we computed the confusion matrix.
 
 ![1-Alex](img/pretrained/1-Alex.png)
 
-In this confusion matrix it’s possible to see that there are many images of the class 6 classified as 14. The main reason is that 14 is a route that has a link with every other class except 10. The errors come from photos that are between 6 and 14, for example a photo of the route 6 in which it is possible to see the route 14 and so on.
+In this confusion matrix it’s possible to see that there are many images of the class 0 classified as 15. The main reason is that 15 has a link with class 0. The errors come from photos that are between 0 and 15, for example a photo of the route 0 in which it is possible to see the route 15 and so on.
 
-It is also possible to notice images of route 11 classified as 9 and also images of the 15 classified as 14. These errors are caused by the same reason explained before.
+It is also possible to notice images of route 2 classified as 10, images of route 5 classified as 10, images of 6 classified as 14 and also images of 9 classified as 11 and 14. These errors are caused by the same reason explained before.
 
 ### ResNet 18
 
 ![2-Res](img/pretrained/2-Res.png)
 
-In this confusion matrix it’s possible to see images of the class 7 classified as 14 and images of 11 classified as 9. The reason is the same as explained before.
+The classification errors of this network come from the same reason explained before.
 
 ### VGG 16
 
 ![3-VGG](img/pretrained/3-VGG.png)
 
-In this confusion matrix it’s possible to see images of the class 5 and 6 classified as 14 and images of 11 classified as 9. The reason is the same as explained before.
+Even for this network the errors come from the same reason explained before.
 
 ## Error Analysis
 

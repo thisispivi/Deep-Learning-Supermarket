@@ -15,6 +15,9 @@ This section will explain the fine tuning applied to the pretrained network Alex
   * [Fine-Tuning](#fine-tuning)
   * [Tune the training options](#tune-the-training-options)
   * [Classification](#classification)
+- [Test and output analysis](#test-and-output-analysis)
+  * [Confusion matrix](#confusion-matrix)
+  * [Error Analysis](#error-analysis)
 
 # Transfer Learning and Fine tuning
 
@@ -125,4 +128,41 @@ Perform the classification using the test set.
 YPred = double(YPred(:,1)) -1;
 ```
 
-Test and output analysis
+# Test and output analysis
+In this section we want to analyze one of the best results obtained by the network. We analyzed the accuracy, the images correctly classified vs. the number of images and the time elapsed. We also analyzed the confusion matrix to understand in which class there are more errors and why.
+| Pretrained Network | Accuracy | Correct classified vs. No. Images | Time elapsed (s) | Time elapsed |
+|:-:|:-:|:-:|:-:|:-:|
+| AlexNet Fine Tuning | 93.68% | 2905 / 3101 | 540.65 | 9 min |
+
+We also analyzed the accuracy and the loss  graphs of the network.
+
+![Network Performance](img/fine/Network-performance.png)
+
+As we can see the accuracy graph shows that the validation and the training lines follow almost the same path.
+
+The same thing can be said about the loss graph. The validation set line and the training set line are almost the same. This means that there’s no overfitting or underfitting.
+
+## Confusion matrix
+In this section we analyze the confusion matrix of the network.
+
+![Network Performance](img/fine/Conf-matr.png)
+
+As we can see there are many elements of the 0 class that were classified as 14 and 15 and 10. As we can see from the map, 0 - 15 - 14 - 10 have some parts in common, they are linking routes. 
+
+The errors come from photos that are between 0 and 15 or 0 and 14 and so on. For example in the training set we can see photos of route 0 that in the test set are in class 14 and so on.
+
+The same thing can be said for the images of class 2 classified as 10 and the images of class 5 classified as 10.
+Error Analysis
+
+## Error Analysis
+
+At the end an analysis of the images misclassified has been done, the major part of them comes from images taken between two routes. 
+
+For example in some images of route 0 we could see route 15. 
+
+![Comparison](img/fine/Comparison.png)
+
+It’s possible to see that the images are almost the same.
+
+These errors could be fixed by removing these images, because they generate many errors, or using the real test set with the labels
+

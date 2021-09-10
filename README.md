@@ -45,7 +45,7 @@ More info on the tests:
 │   ├── ...
 │   ├── 14
 │   └── 15
-├── *ValidationSet*   # Folder with the images of the validation set
+├── *TestSet*   # Folder with the images of the validation set
 │   ├── 00
 │   ├── 01
 │   ├── ...
