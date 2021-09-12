@@ -65,7 +65,7 @@ More info on the tests:
 ├── predict.mexw64   # File with predict function
 |
 | Matlab Script
-├── fine_tuning.mlx   # Script for the AlexMet fine tuning
+├── fine_tuning.mlx   # Script for the AlexNet fine tuning
 ├── new_network.mlx   # Script for new Network
 └── pretrained_networks.mlx   # Script for the pretrained feature extraction
 ```
@@ -98,7 +98,7 @@ So there are two folders:
 
 The images folder won't be in this repository because the size is too high for github.
 
-The organized dataset that has been used can be downloaded [here](https://mega.nz/file/VZ0ShDyI#_1tMgy4y_AEkdYv2BERWRVfuXxc07RWdKVL2V8p54cw).
+The organized dataset that has been used can be downloaded [here](https://mega.nz/file/pQdQ0bgK#agEcbPofnVOqPUiarCcUngtgiKaYXXuK9N-_59YukXw).
 
 # How to run the project
 This section will explain how to run the project
@@ -110,7 +110,10 @@ This section will explain how to run the project
 git clone https://github.com/thisispivi/Deep-Learning-Supermarket
 ```
 
-2. Open the matlab file ```script.mlx```, or the normal matlab script: ```script_no_live.m```
+2. Open one of the matlab script file:  
+    1. pretrained_networks.mlx: the file with the feature extraction using pretrained networks and with the classification using linear SVM
+    1. fine_tuning.mlx: the file with the fine tuning
+    1. new_network.mlx: the file with the new network
 
 1. Install the matlab Statistic and Machine Learning Toolbox Add On: Home > Add-On > Statistic and Machine Learning Toolbox
 
@@ -126,7 +129,7 @@ git clone https://github.com/thisispivi/Deep-Learning-Supermarket
 Here there are two options:
 
 ### Download our organized dataset
-Download the organized dataset we used from this [link](https://mega.nz/file/VZ0ShDyI#_1tMgy4y_AEkdYv2BERWRVfuXxc07RWdKVL2V8p54cw).
+Download the organized dataset we used from this [link](https://mega.nz/file/pQdQ0bgK#agEcbPofnVOqPUiarCcUngtgiKaYXXuK9N-_59YukXw).
 
 ### Download and manually organize the original dataset
 1. Download the original [dataset](https://iplab.dmi.unict.it/MLC2018/)
@@ -135,19 +138,10 @@ Download the organized dataset we used from this [link](https://mega.nz/file/VZ0
 
 3. Take the training set images and put them inside a new folder called **TrainingSet** in the root of the project
 
-4. Take the validation set images and put them inside a new folder called **ValidationSet** in the root of the project
+4. Take the validation set images and put them inside a new folder called **TestSet** in the root of the project
 
 ## Variables configuration
-The next step is to configure the variables of the first section. Here there's one of the most important thing to do: choosing which pretrained network use to extract the features. To select one you have to uncomment.
-```
-% network = "alexnet";
-% network = "resnet";
-% network = "vgg"
-```
-
-**(Optional)**
-
-Configure the other variables
+The next step is to configure the variables of the first section. 
 
 ## Run the script
 The only thing left is to run the script

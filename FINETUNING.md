@@ -36,11 +36,17 @@ In this section we will explain the changes applied to the AlexNet.
 
 The first thing done was to remove the last three layers of the network, because they are configured for 1000 classes. These three layers must be fine-tuned for the new classification problem.
 
-So we add again a fully connected layer with the right number of classes and some parameters tuned. We also add the softmax layer and the output layer at the end.
+So we add again a fully connected layer with the right number of classes and some parameters tuned: weight and bias learn rate factor. These two parameters are useful if we want the network to learn faster in the new layers than in the transfered. 
+We also add the softmax layer and the output layer at the end.
 
-With fine tuning it is also possible to change the weights of the first layers, but we decided to leave them unchanged
+With fine tuning it is also possible to change the weights of the first layers, but we decided to leave them unchanged.
+
 
 ![AlexNet_Fine_Tuning](img/fine/Alex.png)
+
+When the new network is ready we set all the parameters like the optimizer, learning rate, the validation set, the mini batch size, the epochs and so on.
+
+After that, we train the new network using the layers, training set and the options.
 
 # How the script works
 This section will explain how the project works.
@@ -104,7 +110,10 @@ layers = [
 
 ## Tune the training options
 
-Specify the training options. For transfer learning, keep the features from the early layers of the pretrained network (the transferred layer weights). Train the network for a few epochs. Specify the mini-batch size and validation data.
+In this section we configure the training options of the network. Our optimizer is **sgdm**. The number of epochs is 6, the mini batch size is 100, the learning rate is 0.0001 and the validation frequency is 3. 
+
+In this section we have also to specify where to take the validation data. We used our validation set.
+
 
 ```matlab
 options = trainingOptions('sgdm', ...
@@ -121,24 +130,35 @@ options = trainingOptions('sgdm', ...
 
 Train the network
 Train the network using the training set, the layers and the options configured before.
+
+![Training](img/fine/Training.png)
+
 ```matlab
 netTransfer = trainNetwork(augimdsTrain,layers,options);
 ```
 
 ## Classification
 Perform the classification using the test set.
+
+![Classification](img/fine/Predictions.png)
+
 ```matlab
 [YPred,scores] = classify(netTransfer,augimdsTest);
 YPred = double(YPred(:,1)) -1;
 ```
 
 # Test and output analysis
-In this section we want to analyze one of the best results obtained by the network. We analyzed the accuracy, the images correctly classified vs. the number of images and the time elapsed. We also analyzed the confusion matrix to understand in which class there are more errors and why.
+In this section we want to analyze one of the best results obtained by the network. 
+
+We analyzed the accuracy, the images correctly classified vs. the number of images and the time elapsed. 
+
+We also analyzed the confusion matrix to understand in which class there are more errors and why.
+
 | Pretrained Network | Accuracy | Correct classified vs. No. Images | Time elapsed (s) | Time elapsed |
 |:-:|:-:|:-:|:-:|:-:|
 | AlexNet Fine Tuning | 93.68% | 2905 / 3101 | 540.65 | 9 min |
 
-We also analyzed the accuracy and the loss  graphs of the network.
+We also analyzed the accuracy and the loss graphs of the network.
 
 ![Network Performance](img/fine/Network-performance.png)
 
@@ -160,7 +180,7 @@ Error Analysis
 
 ## Error Analysis
 
-At the end an analysis of the images misclassified has been done, the major part of them comes from images taken between two routes. 
+As we did with the other test, at the end we analyzed the misclassified images and we saw that the major part of them comes from images taken between two routes. 
 
 For example in some images of route 0 we could see route 15. 
 
@@ -168,5 +188,5 @@ For example in some images of route 0 we could see route 15.
 
 It’s possible to see that the images are almost the same.
 
-These errors could be fixed by removing these images, because they generate many errors, or using the real test set with the labels
+These errors could be fixed by removing these images, because they generate many errors, or using the real test set with the labels.
 
