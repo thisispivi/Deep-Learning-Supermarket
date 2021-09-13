@@ -189,7 +189,10 @@ For each pretrained network we computed the confusion matrix.
 
 In this confusion matrix it’s possible to see that there are many images of the class 0 classified as 15. The main reason is that 15 has a link with class 0. The errors come from photos that are between 0 and 15, for example a photo of the route 0 in which it is possible to see the route 15 and so on.
 
-It is also possible to notice images of route 2 classified as 10, images of route 5 classified as 10, images of 6 classified as 14 and also images of 9 classified as 11 and 14. These errors are caused by the same reason explained before.
+It is also possible to notice images of route 3 classified as 10. Analyzing the map it is possible to see that 3 and 10 are linking routes.
+
+The routes 10 and 14 are the ones that produce the most errors, in fact analyzing row 10 and 14 of the confusion matrix we can see that for almost every class there are misclassified images. 
+
 
 ### ResNet 18
 
@@ -213,4 +216,4 @@ For example in some images of route 0 we could see route 15.
 
 It’s possible to see that the images are almost the same.
 
-These errors could be fixed by removing these images, because they generate many errors, or using the real test set with the labels
+These errors could be fixed by removing these images, because they generate many errors.

@@ -156,11 +156,11 @@ We also analyzed the confusion matrix to understand in which class there are mor
 
 | Pretrained Network | Accuracy | Correct classified vs. No. Images | Time elapsed (s) | Time elapsed |
 |:-:|:-:|:-:|:-:|:-:|
-| AlexNet Fine Tuning | 93.68% | 2905 / 3101 | 540.65 | 9 min |
+| AlexNet Fine Tuning | 93.02% | 5740 / 6171 | 752.53 | 12 min 32 s |
 
 We also analyzed the accuracy and the loss graphs of the network.
 
-![Network Performance](img/fine/Network-performance.png)
+![Network Performance](img/fine/Network-Performance.png)
 
 As we can see the accuracy graph shows that the validation and the training lines follow almost the same path.
 
@@ -171,12 +171,12 @@ In this section we analyze the confusion matrix of the network.
 
 ![Network Performance](img/fine/Conf-Matr.png)
 
-As we can see there are many elements of the 0 class that were classified as 14 and 15 and 10. As we can see from the map, 0 - 15 - 14 - 10 have some parts in common, they are linking routes. 
+In this confusion matrix it’s possible to see that there are many images of the class 0 classified as 15. The main reason is that 15 has a link with class 0. The errors come from photos that are between 0 and 15, for example a photo of the route 0 in which it is possible to see the route 15 and so on.
 
-The errors come from photos that are between 0 and 15 or 0 and 14 and so on. For example in the training set we can see photos of route 0 that in the test set are in class 14 and so on.
+It is also possible to notice images of route 2 classified as 10. Analyzing the map it is possible to see that 2 and 10 are linking routes.
 
-The same thing can be said for the images of class 2 classified as 10 and the images of class 5 classified as 10.
-Error Analysis
+The routes 10 and 14 are the ones that produce the most errors, in fact analyzing row 10 and 14 of the confusion matrix we can see that for almost every class there are misclassified images. 
+
 
 ## Error Analysis
 
@@ -188,5 +188,6 @@ For example in some images of route 0 we could see route 15.
 
 It’s possible to see that the images are almost the same.
 
-These errors could be fixed by removing these images, because they generate many errors, or using the real test set with the labels.
+These errors could be fixed by removing these images, because they generate many errors.
+
 

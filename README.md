@@ -38,19 +38,27 @@ More info on the tests:
 | Folders
 ├── img   # Images for the readme
 ├── doc   # Report folder
-│   ├── Report.pdf   # Report
+│   └── Report.pdf   # Report
+├── split  # Split folder
+│   └── split.sh   # Split bash file
 ├── *TrainingSet*   # Folder with the images of the training set
-│   ├── 00
-│   ├── 01
-│   ├── ...
-│   ├── 14
-│   └── 15
-├── *TestSet*   # Folder with the images of the validation set
-│   ├── 00
-│   ├── 01
-│   ├── ...
-│   ├── 14
-│   └── 15
+│   ├── 00
+│   ├── 01
+│   ├── ...
+│   ├── 14
+│   └── 15
+├── *TestSet*   # Folder with the images of the test set
+│   ├── 00
+│   ├── 01
+│   ├── ...
+│   ├── 14
+│   └── 15
+├── *ValidationSet*   # Folder with the images of the validation set
+│   ├── 00
+│   ├── 01
+│   ├── ...
+│   ├── 14
+│   └── 15
 |
 | Markdown
 ├── README.md
@@ -73,7 +81,7 @@ More info on the tests:
 Folders with * are not included in the repository.
 
 # Dataset Organization
-The first step to do is to organize the images into folders. The zip file is made by a folder that contains all the images and three csv files:
+The first step to do is to organize the images into folders. On the [site](https://iplab.dmi.unict.it/MLC2018/) it is possible to download the zip with the dataset. This file is a reduced version of another [dataset](https://iplab.dmi.unict.it/EgocentricShoppingCartLocalization/) and is made by a folder that contains all the images and three csv files:
 * **training_set**: that contains all the images to use to train the pretrained network
 * **validation_set**: that contains all the images to use to verify the accuracy
 * **test_set**: that contains all the images to use to run the algorithm
@@ -86,14 +94,17 @@ The first two csv files have 6 columns:
 * z coordinate
 * Class
 
+The last csv file has just the image file names, so there are no labels.
+
 Just the first two files have been used and all the coordinate columns have been removed, because the position in which the photo was taken it’s not necessary. So just the name of the file and the class have been used.
 
 In both the training and the validation set, using a bash script file, all the images have been divided into folders from 00 to 15 based on their class.
 
-The **test_set** file hasn’t been used because it has no label. This means that when the network creates the predictions there is no way to check if the classes are right. So we decided to use the **validation_set** as the test set and when we need the validation set we **split the training_set**. 
+The **test_set** csv file hasn’t been taken from the reduced dataset. So we downloaded the original dataset and we took the test set txt file. From this txt file we removed the coordinate columns and we used just the name of the file and the class. At the end, using a bash script file, we divided the images into folders from 00 to 15 based on their class, like we did for the validation and training set.
 
 So there are two folders:
 1. **TestSet**: in which there are all the test set images
+1. **ValidationSet**: in which there are all the validation set images
 1. **TrainingSet**: in which there are all the training set images
 
 The images folder won't be in this repository because the size is too high for github.
@@ -111,9 +122,10 @@ git clone https://github.com/thisispivi/Deep-Learning-Supermarket
 ```
 
 2. Open one of the matlab script file:  
-    1. pretrained_networks.mlx: the file with the feature extraction using pretrained networks and with the classification using linear SVM
-    1. fine_tuning.mlx: the file with the fine tuning
-    1. new_network.mlx: the file with the new network
+    1. ```pretrained_networks.mlx```: the file with the feature extraction using pretrained networks and with the classification using linear SVM
+    1. ```fine_tuning.mlx```: the file with the fine tuning
+    1. ```new_network.mlx```: the file with the new network
+
 
 1. Install the matlab Statistic and Machine Learning Toolbox Add On: Home > Add-On > Statistic and Machine Learning Toolbox
 
@@ -134,11 +146,11 @@ Download the organized dataset we used from this [link](https://mega.nz/file/pQd
 ### Download and manually organize the original dataset
 1. Download the original [dataset](https://iplab.dmi.unict.it/MLC2018/)
 
-2. With the help of online tools remove the coordinates columns from the csv files
+1. Insert the images in the split folder
 
-3. Take the training set images and put them inside a new folder called **TrainingSet** in the root of the project
+1. Run all the ```split.sh``` files
 
-4. Take the validation set images and put them inside a new folder called **TestSet** in the root of the project
+1. Move the Training, Validation and Test set folders in the root of the project
 
 ## Variables configuration
 The next step is to configure the variables of the first section. 
