@@ -83,7 +83,7 @@ Folders with * are not included in the repository.
 # Dataset Organization
 The first step to do is to organize the images into folders. On the [site](https://iplab.dmi.unict.it/MLC2018/) it is possible to download the zip with the dataset. This file is a reduced version of another [dataset](https://iplab.dmi.unict.it/EgocentricShoppingCartLocalization/) and is made by a folder that contains all the images and three csv files:
 * **training_set**: that contains all the images to use to train the pretrained network
-* **validation_set**: that contains all the images to use to verify the accuracy
+* **validation_set**: that contains all the images to use to get an unbiased evaluation of the model
 * **test_set**: that contains all the images to use to run the algorithm
 
 The first two csv files have 6 columns:
@@ -96,7 +96,7 @@ The first two csv files have 6 columns:
 
 The last csv file has just the image file names, so there are no labels.
 
-Just the first two files have been used and all the coordinate columns have been removed, because the position in which the photo was taken it’s not necessary. So just the name of the file and the class have been used.
+We used just the first two csv files and we removed all the coordinate columns from them, because the position in which the photo was taken it’s not necessary. So just the name of the file and the class have been used.
 
 In both the training and the validation set, using a bash script file, all the images have been divided into folders from 00 to 15 based on their class.
 
@@ -141,7 +141,7 @@ git clone https://github.com/thisispivi/Deep-Learning-Supermarket
 Here there are two options:
 
 ### Download our organized dataset
-Download the organized dataset we used from this [link](https://mega.nz/file/pQdQ0bgK#agEcbPofnVOqPUiarCcUngtgiKaYXXuK9N-_59YukXw).
+Download the organized dataset we used from this [link](https://mega.nz/file/4Y0gGApI#GyfobYBt2vI52A85Gk_AQMBx3DkQ06q3Z0P3lncT__k).
 
 ### Download and manually organize the original dataset
 1. Download the original [dataset](https://iplab.dmi.unict.it/MLC2018/)

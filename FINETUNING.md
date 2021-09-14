@@ -32,15 +32,14 @@ The most common incarnation of transfer learning in the context of deep learning
 A last, optional step, is fine-tuning, which consists of unfreezing the entire model obtained above (or part of it), and re-training it on the new data with a very low learning rate. This can potentially achieve meaningful improvements, by incrementally adapting the pretrained features to the new data.
 
 # Fine tuning applied to AlexNet
-In this section we will explain the changes applied to the AlexNet.
+In this section we will explain the change applied to the AlexNet.
 
-The first thing done was to remove the last three layers of the network, because they are configured for 1000 classes. These three layers must be fine-tuned for the new classification problem.
+The thing we did was to remove the last three layers of the network, because they are configured for 1000 classes. These three layers must be fine-tuned for the new classification problem.
 
 So we add again a fully connected layer with the right number of classes and some parameters tuned: weight and bias learn rate factor. These two parameters are useful if we want the network to learn faster in the new layers than in the transfered. 
 We also add the softmax layer and the output layer at the end.
 
 With fine tuning it is also possible to change the weights of the first layers, but we decided to leave them unchanged.
-
 
 ![AlexNet_Fine_Tuning](img/fine/Alex.png)
 
@@ -81,7 +80,7 @@ In the second part of the code there will be the import of all the images, using
 So the program takes the test set images from the folder **TestSet** and it stores them into an ```ImageDataStore``` object. The same thing for the training and validation set.
 
 ## Image resize
-The networks require different input sizes, in this section the image will be resized to fit the first input layer. To automatically resize the training and test images before they are used as input by the network, the program creates augmented image datastores, it specifies the desired image size, and it uses these datastores as input arguments to activations.
+The networks require different input sizes, in this section the image will be resized to fit the first input layer. To automatically resize the training, validation and test images before they are used as input by the network, the program creates augmented image datastores, it specifies the desired image size, and it uses these datastores as input arguments to activations.
 
 ![Image Resize](img/pretrained/Resize.png)
 

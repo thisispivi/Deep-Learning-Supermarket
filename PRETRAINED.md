@@ -198,13 +198,16 @@ The routes 10 and 14 are the ones that produce the most errors, in fact analyzin
 
 ![2-Res](img/pretrained/2-Res.png)
 
-The classification errors of this network come from the same reason explained before.
+Even in this confusion matrix we can see elements of class 0 classified as 15. The reason is the same as explained before.
+
+We can also see that the routes 10 and 14 are the ones that produce the most errors, in fact analyzing row 10 and 14 of the confusion matrix we can see that for almost every class there are misclassified images. 
+
 
 ### VGG 16
 
 ![3-VGG](img/pretrained/3-VGG.png)
 
-Even for this network the errors come from the same reason explained before.
+Here we can see the class 0 classified as 15 and the errors on rows 10 and 14. The errors of this network come from the same reason explained before.
 
 ## Error Analysis
 
