@@ -10,7 +10,7 @@ This section will explain the fine tuning applied to the pretrained network Alex
   * [Variables tuning](#variables-tuning)
     + [Print configuration](#print-configuration)
     + [Other variables](#other-variables)
-  * [Import the dataset and split the training set](#import-the-dataset-and-split-the-training-set)
+  * [Import the dataset](#import-the-dataset)
   * [Image resize](#image-resize)
   * [Fine-Tuning](#fine-tuning)
   * [Tune the training options](#tune-the-training-options)
@@ -75,12 +75,10 @@ The last variable is the number of classes
 numClasses = 16;
 ```
 
-## Import the dataset and split the training set
+## Import the dataset
 In the second part of the code there will be the import of all the images, using ```imageDataStore```, a function that automatically labels all the images based on the folder names. The images will be stored into an ```ImageDataStore``` object. 
 
-So the program takes the test set images from the folder **TestSet** and it stores them into an ```ImageDataStore``` object. The same thing for the training set.
-
-After we split the Training set into Training and Validation sets. The validation set will be 30% of the training set. 
+So the program takes the test set images from the folder **TestSet** and it stores them into an ```ImageDataStore``` object. The same thing for the training and validation set.
 
 ## Image resize
 The networks require different input sizes, in this section the image will be resized to fit the first input layer. To automatically resize the training and test images before they are used as input by the network, the program creates augmented image datastores, it specifies the desired image size, and it uses these datastores as input arguments to activations.
