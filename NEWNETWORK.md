@@ -7,19 +7,17 @@ The last test consists of creating a new convolutional neural network.
 
 The network we created has 28 layers.
 
-![Network Structure](img/new/Network-Structure.png)
+![Network Structure](img/new/Network.png)
 
-In our first try we started with a simple network composed by a convolution 2d layer + batch normalization layer + relu layer + max pooling layer, then it follows a fully connected layer + softmax and at the end the layer that classifies the feature produced from the convolutional part of the net.
+In our first try we started with a simple network composed by: a convolution 2d layer + batch normalization layer + relu layer + max pooling layer, then it follows a fully connected layer + softmax and at the end the layer that classifies the feature produced from the convolutional part of the net.
 
-After we added a convolutional layer and changed some parameters, like the dimension of the filter, until we reached an optimal result as accuracy.
+After we added convolutional layers and changed some parameters, like the dimension of the filter, until we reached an optimal result as accuracy.
 
-The final network created has 4 combinations of:
+The final network created has 5 combinations of:
 
+![Layers](img/new/Layers.png)
 
-After it has a convolution 2d layer and a batch normalization and another combination described before.
-
-This part of the net extracts the feature from the image of the training set.
-At the end there are 3 fully connected layers, a softmax layer and the classification one. 
+At the end there are 3 fully connected layers, a softmax layer and the classification one. Between the first two fully connected layers there’s a dropout layer.
 
 # How the script works
 This section will explain how the project works.
@@ -78,12 +76,11 @@ layers = [
     
     convolution2dLayer(3,64,'Padding','same')
     batchNormalizationLayer
-    convolution2dLayer(3,53,'Padding','same')
-    batchNormalizationLayer
     reluLayer
     maxPooling2dLayer(2,'Stride',2)
 
     fullyConnectedLayer(128)
+    dropoutLayer(0.25)
     fullyConnectedLayer(128)
     fullyConnectedLayer(16)
     softmaxLayer
@@ -130,7 +127,7 @@ The training of the network has been performed using an Nvidia 2060 GPU.
 
 | Pretrained Network | Accuracy | Correct classified vs. No. Images | Time elapsed (s) | Time elapsed |
 |:-:|:-:|:-:|:-:|:-:|
-| New Network | 93.02% | 5740 / 6171 | 752.53 | 12 min 32 s |
+| New Network | 90.52% | 5585 / 6171 | 3685.58 | 1 h 1 m 25 s |
 
 We also analyzed the accuracy and the loss graphs of the network.
 
@@ -145,8 +142,10 @@ In this section we analyze the confusion matrix of the network.
 
 ![Network Performance](img/new/Conf-Matr.png)
 
-As we can see there are more errors in the first 6 classes than other networks. 
-The main errors come from routes 10 and 14, because they are routes that link with routes from 1 to 9.
+In this confusion matrix it’s possible to see that there are many images of the class 0 classified as 15. The main reason is that 15 has a link with class 0. The errors come from photos that are between 0 and 15, for example a photo of the route 0 in which it is possible to see the route 15 and so on.
+
+The routes 10 and 14 are the ones that produce the most errors, in fact analyzing row 10 and 14 of the confusion matrix we can see that for almost every class there are misclassified images. 
+
 
 ## Error Analysis
 
