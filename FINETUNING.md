@@ -45,7 +45,7 @@ With fine tuning it is also possible to change the weights of the first layers, 
 
 When the new network is ready we set all the parameters like the optimizer, learning rate, the validation set, the mini batch size, the epochs and so on.
 
-After that, we train the new network using the layers, training set and the options.
+After that, we train the new network using the layers, training set and the options (learning rate, optimizer and so on).
 
 # How the script works
 This section will explain how the project works.
